@@ -1,0 +1,28 @@
+.container-s{
+	width: 97%;
+	height: 700px;
+	margin-left: 20px;
+	text-align: center;
+}
+.search{
+	width: 550px;
+	height: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.search-w{
+	width:550px;
+}
+.search-text{
+	width: 100px;
+}
+.search-date{
+	width: 400px;
+}
+#eventlog_searchtext,.input-group-addon{
+	height: 30px;
+}
+th{
+background-color: #FAFAFA;
+text-align: center;
+}

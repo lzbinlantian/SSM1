@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离
+注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址
+-->
+<mapper namespace="cn.lantian.ssm.mapper.UserMapper">
+	<!--定義查詢方法-->
+	<select id="findUserByPhone" parameterType="String" resultType="cn.lantian.ssm.model.User">
+				SELECT * from user WHERE phone = #{VALUE };
+	</select>
+
+	<!--根据权限查詢方法-->
+	<select id="findUserByGrant" parameterType="cn.lantian.ssm.model.User" resultType="cn.lantian.ssm.model.User">
+				SELECT * from user WHERE thechallengecup.user.grant LIKE '%${grant}%' ORDER by thechallengecup.user.name DESC limit #{index},#{pageSize} ;
+	</select>
+
+	<!--根据权限查詢方法-->
+	<select id="countUserByGrant" parameterType="cn.lantian.ssm.model.User" resultType="java.lang.Integer">
+				SELECT COUNT(*) from user WHERE thechallengecup.user.grant LIKE '%${grant}%';
+	</select>
+
+
+	<!--public void createUser(User user);-->
+	<insert id="createUser" parameterType="cn.lantian.ssm.model.User">
+		INSERT INTO thechallengecup.user VALUE (#{phone},#{password},#{name},#{grant});
+	</insert>
+
+
+	<!--public void dropUser(User user);-->
+	<delete id="dropUser" parameterType="java.util.List">
+		/*单条记录查询、迟些更新成多同步删除*/
+		DELETE FROM thechallengecup.user WHERE phone IN
+		<foreach item="item" index="index" collection="list" open="("
+		         separator="," close=")">
+			#{item}
+		</foreach>;
+	</delete>
+
+	<!--权限修改-->
+	<update id="grantAll" parameterType="cn.lantian.ssm.model.User">
+			UPDATE thechallengecup.user SET thechallengecup.user.grant = #{grant} WHERE phone = #{phone};
+
+	</update>
+
+	<!--查询全部~管理员-->
+	<select id="selectAll" parameterType="cn.lantian.ssm.model.User" resultType="cn.lantian.ssm.model.User">
+		SELECT * from user ORDER BY NAME  limit #{index},#{pageSize} ;
+
+	</select>
+
+	<!--计算总数量-->
+	<select id="countnum" resultType="java.lang.Integer">
+		SELECT COUNT(*) from user;
+	</select>
+
+	<!--修改密码-->
+	<update id="updatePassword" parameterType="cn.lantian.ssm.model.User">
+		UPDATE thechallengecup.user SET password = #{password} WHERE phone = #{phone}
+	</update>
+
+</mapper>

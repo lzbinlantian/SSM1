@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/cn/lantian/ssm/mapper/DetailMaterielMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/cn/lantian/ssm/mapper/DetailOrderMapper.xml" dialect="MySQL" />
+  </component>
+</project>

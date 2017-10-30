@@ -1,0 +1,140 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+
+	<!-- 可以扫描controller、service、...
+	这里让扫描controller，指定controller的包
+	 -->
+	<context:component-scan base-package="cn.lantian.ssm.controller"></context:component-scan>
+
+
+	<!--注解映射器 -->
+	<!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
+	<!--注解适配器 -->
+	<!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>-->
+
+	<!-- 使用 mvc:annotation-driven代替上边注解映射器和注解适配器配置
+	mvc:annotation-driven默认加载很多的参数绑定方法，
+	比如json转换解析器就默认加载了，如果使用mvc:annotation-driven不用配置上边的RequestMappingHandlerMapping和RequestMappingHandlerAdapter
+	实际开发时使用mvc:annotation-driven
+	 -->
+	<mvc:annotation-driven conversion-service="conversionService"
+	                       validator="validator"></mvc:annotation-driven>
+
+	<!--静态访问方式-->
+	<mvc:resources location="/InOutputpic/" mapping="/static/**"/>
+<!--C:\Users\hasee\IdeaProjects\TheChallengeCup\out\artifacts\TheChallengeCup_war_exploded\WEB-INF\resources\00080503540240438003208680901082input.jpg-->
+<!--out/artifacts/TheChallengeCup_war_exploded/InOutputpic-->
+	<!--要用就配就是了-->
+
+	<!--自定義參數綁定-->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<!--轉換器-->
+		<property name="converters">
+			<list>
+				<!--日期類型轉換-->
+				<bean class="cn.lantian.ssm.controller.converter.DateConverter"></bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 视图解析器
+	解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包
+	 -->
+	<bean
+			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 配置jsp路径的前缀 -->
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<!-- 配置jsp路径的后缀 -->
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+
+	<!--配置校驗器-->
+	<!-- 校验器 -->
+	<bean id="validator"
+	      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<!-- 校验器-->
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+		<!-- 指定校验使用的资源文件，如果不指定则默认使用classpath下的ValidationMessages.properties -->
+		<property name="validationMessageSource" ref="messageSource"/>
+	</bean>
+	<!-- 校验错误信息配置文件 -->
+	<bean id="messageSource"
+	      class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<!-- 资源文件名-->
+		<!--<property name="basenames">
+			<list>
+				<value>ValidationMessages</value>
+			</list>
+		</property>-->
+		<!-- 资源文件编码格式 -->
+		<property name="fileEncodings" value="utf-8"/>
+		<!-- 对资源文件内容缓存时间，单位秒 -->
+		<property name="cacheSeconds" value="120"/>
+	</bean>
+
+	<!--全局异常处理器
+		只要实现了HandlerExceptionResolver接口、就是全局异常处理器
+	-->
+	<bean id="exceptionResolver" class="cn.lantian.ssm.controller.exception.UserExceptionResolver"></bean>
+
+	<!--上传文件组件-->
+	<bean id="multipartResolver"
+	      class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 上传文件大小上限，单位为字节（10MB） -->
+		<property name="maxUploadSize">
+			<value>10485760</value>
+		</property>
+		<!-- 请求的编码格式，必须和jSP的pageEncoding属性一致，以便正确读取表单的内容，默认为ISO-8859-1 -->
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+	</bean>
+
+
+	<mvc:default-servlet-handler/>
+	<!--拦截器 -->
+	<mvc:interceptors>
+		<!--多个拦截器,顺序执行 -->
+		<mvc:interceptor>
+			<!--/**表示拦截所有的url包括子url、全局拦截-->
+			<!--不让它拦截静态资源-->
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/**/**/*"/>
+			<mvc:exclude-mapping path="/**/fonts/*"/>
+			<mvc:exclude-mapping path="/**/*.css"/>
+			<mvc:exclude-mapping path="/**/*.js"/>
+			<mvc:exclude-mapping path="/**/*.png"/>
+			<mvc:exclude-mapping path="/**/*.gif"/>
+			<mvc:exclude-mapping path="/**/*.jpg"/>
+			<mvc:exclude-mapping path="/**/*.jpeg"/>
+			<mvc:exclude-mapping path="/**/*login*"/>
+			<mvc:exclude-mapping path="/**/*Login*"/>
+			<bean class="cn.lantian.ssm.interceptor.HandlerInterceptor1"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+	<!--<bean id="loginAOP" class="com.shop.aop.LoginAOP" />
+	<aop:config>
+		<aop:aspect id="aspect" ref="loginAOP">
+			<aop:pointcut expression="execution(* com.shop.controller..*.*(..)) and not execution(* com.shop.controller.LoginController.*(..))"
+			              id="controller" />
+			<aop:before method="beforeExec" pointcut-ref="controller" />
+		</aop:aspect>
+	</aop:config>-->
+
+
+
+
+
+
+</beans>

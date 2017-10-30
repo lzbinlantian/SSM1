@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lantian.ssm.mapper.DetailMaterielMapper">
+	<!--添加材料入库-->
+	<insert id="addMateriel" parameterType="cn.lantian.ssm.model.DetailMateriel">
+		INSERT INTO detail_materiel (thechallengecup.detail_materiel.name, density, size, chargeunit, unitprice, sort)
+			VALUE (
+			#{name},
+			#{density},
+			#{size},
+			#{chargeunit},
+			#{unitprice},
+			#{sort}
+		)
+	</insert>
+
+	<select id="findAllDetailMateriel" parameterType="cn.lantian.ssm.model.DetailMateriel"
+	        resultType="cn.lantian.ssm.model.DetailMateriel">
+		SELECT *
+		FROM thechallengecup.detail_materiel
+		WHERE thechallengecup.detail_materiel.sort LIKE '%${sort}%'
+		ORDER BY thechallengecup.detail_materiel.detail_materiel_id
+		LIMIT #{index}, #{pageSize}
+	</select>
+
+	<select id="findAllDetailMaterielByName" parameterType="cn.lantian.ssm.model.DetailMateriel"
+	        resultType="cn.lantian.ssm.model.DetailMateriel">
+		SELECT *
+		FROM thechallengecup.detail_materiel
+		WHERE thechallengecup.detail_materiel.sort LIKE '%${sort}%' AND
+		      thechallengecup.detail_materiel.name LIKE '%${name}%'
+		ORDER BY thechallengecup.detail_materiel.detail_materiel_id
+		LIMIT #{index}, #{pageSize}
+	</select>
+
+	<select id="countDetailMateriel" parameterType="cn.lantian.ssm.model.DetailMateriel"
+	        resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM thechallengecup.detail_materiel
+		WHERE thechallengecup.detail_materiel.sort LIKE '%${sort}%'
+	</select>
+
+	<select id="countfindAllDetailMaterielByName" parameterType="cn.lantian.ssm.model.DetailMateriel"
+	        resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM thechallengecup.detail_materiel
+		WHERE thechallengecup.detail_materiel.sort LIKE '%${sort}%' AND
+		      thechallengecup.detail_materiel.name LIKE '%${name}%'
+	</select>
+
+
+	<delete id="deleteMateriel" parameterType="java.util.List">
+		/*单条记录查询、迟些更新成多同步删除*/
+		DELETE FROM thechallengecup.detail_materiel WHERE thechallengecup.detail_materiel.detail_materiel_id IN
+		<foreach item="item" index="index" collection="list" open="("
+		         separator="," close=")">
+			#{item}
+		</foreach>;
+	</delete>
+
+
+	<update id="updateMateriel" parameterType="cn.lantian.ssm.model.DetailMateriel">
+		/*update table_name set data1="具体某个数据" where data1="旧数据";*/
+		UPDATE thechallengecup.detail_materiel
+		SET thechallengecup.detail_materiel.name    = #{name},
+			thechallengecup.detail_materiel.density = #{density},
+			size                                    = #{size},
+			chargeunit                              = #{chargeunit},
+			unitprice                               = #{unitprice}
+		WHERE detail_materiel_id = #{detail_Materiel_Id};
+
+	</update>
+
+
+</mapper>

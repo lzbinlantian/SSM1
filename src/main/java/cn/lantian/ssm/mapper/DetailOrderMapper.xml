@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lantian.ssm.mapper.DetailOrderMapper">
+	<select id="findDetailOrderById" parameterType="java.lang.String" resultType="cn.lantian.ssm.model.DetailOrder">
+		SELECT *
+		FROM thechallengecup.detail_order
+		WHERE thechallengecup.detail_order.uuid = #{id}
+	</select>
+
+	<insert id="createDetailOrder" parameterType="cn.lantian.ssm.model.DetailOrderAndOrder">
+		INSERT INTO thechallengecup.detail_order VALUES (
+			#{uuid},
+			#{detailOrder.zikename},
+			#{detailOrder.zikemidu},
+			#{detailOrder.zikehoudu},
+			#{detailOrder.zikes},
+			#{detailOrder.zikejijia},
+			#{detailOrder.zikedanjia},
+			#{detailOrder.zikep},
+
+			#{detailOrder.dikename},
+			#{detailOrder.dikemidu},
+			#{detailOrder.dikehoudu},
+			#{detailOrder.dikes},
+			#{detailOrder.dikejijia},
+			#{detailOrder.dikedanjia},
+			#{detailOrder.dikep},
+
+			#{detailOrder.shuzhiname},
+			#{detailOrder.shuzhimidu},
+			#{detailOrder.shuzhihoudu},
+			#{detailOrder.shuzhis},
+			#{detailOrder.shuzhidanjia},
+			#{detailOrder.shuzhip},
+
+			#{detailOrder.yakeliname},
+			#{detailOrder.yakelimidu},
+			#{detailOrder.yakelihoudu},
+			#{detailOrder.yakelis},
+			#{detailOrder.yakelidanjia},
+			#{detailOrder.yakelip},
+
+			#{detailOrder.dengname},
+			#{detailOrder.denggonglv},
+			#{detailOrder.dengjijia},
+
+			#{detailOrder.dengdanjia},
+			#{detailOrder.dengzongjia},
+			#{detailOrder.dianyuanzonggonglv},
+			#{detailOrder.dianyuanzongjia},
+			#{detailOrder.rengongname},
+			#{detailOrder.rengongzhanbi},
+			#{detailOrder.rengongzongjia},
+			#{detailOrder.inputpic},
+			#{detailOrder.resultpic}
+		);
+	</insert>
+
+
+</mapper>

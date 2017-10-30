@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lantian.ssm.mapper.OrderMapper">
+	<select id="findAllOrder" parameterType="cn.lantian.ssm.model.Order" resultType="cn.lantian.ssm.model.Order">
+		SELECT * FROM thechallengecup.order1  ORDER by thechallengecup.order1.createtime limit #{index},#{pageSize}
+	</select>
+
+	<select id="findOrderByTime" parameterType="cn.lantian.ssm.model.Order" resultType="cn.lantian.ssm.model.Order">
+		SELECT * FROM thechallengecup.order1 WHERE thechallengecup.order1.createtime LIKE '%${createtime}%' ORDER by thechallengecup.order1.createtime limit #{index},#{pageSize};
+
+	</select>
+
+	<select id="findOrderById" parameterType="java.lang.String" resultType="cn.lantian.ssm.model.Order">
+		SELECT * FROM thechallengecup.order1 WHERE thechallengecup.order1.uuid = #{id};
+	</select>
+
+	<select id="findDetailOrderById" parameterType="java.lang.String" resultType="cn.lantian.ssm.model.DetailOrder">
+		SELECT * FROM thechallengecup.detail_order WHERE thechallengecup.detail_order.uuid = #{id};
+
+	</select>
+
+
+	<select id="findCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM thechallengecup.order1;
+	</select>
+
+	<select id="countOrderByTime" parameterType="cn.lantian.ssm.model.Order" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM thechallengecup.order1  WHERE thechallengecup.order1.createtime LIKE '%${createtime}%';
+	</select>
+
+
+	<insert id="createOrder" parameterType="cn.lantian.ssm.model.DetailOrderAndOrder">
+		INSERT INTO thechallengecup.order1 VALUES (
+		#{uuid},
+		#{order.customer},
+		#{order.count},
+		#{order.createtime},
+		#{order.phone},
+		#{order.height},
+		#{order.size}
+		);
+	</insert>
+</mapper>

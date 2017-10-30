@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lantian.ssm.mapper.logMapper">
+	<!--增加日志-->
+	<insert id="addlog" parameterType="cn.lantian.ssm.model.log">
+		INSERT INTO thechallengecup.log (createtime, phone, record) VALUE (
+			#{createtime},#{phone},#{record}
+		)
+	</insert>
+
+	<select id="findAll" parameterType="cn.lantian.ssm.model.log" resultType="cn.lantian.ssm.model.log">
+		SELECT * FROM thechallengecup.log ORDER BY thechallengecup.log.createtime DESC limit #{index},#{pageSize} ;
+	</select>
+
+	<select id="findLogByTime" parameterType="cn.lantian.ssm.model.log" resultType="cn.lantian.ssm.model.log">
+		SELECT * FROM thechallengecup.log WHERE thechallengecup.log.createtime LIKE '%${createtime}%' ORDER BY thechallengecup.log.createtime DESC limit #{index},#{pageSize} ;
+	</select>
+
+	<!--findAllLogNum-->
+	<select id="findAllLogNum" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM thechallengecup.log;
+	</select>
+
+	<!--findAllLogNum-->
+	<select id="countfindLogByTime" parameterType="cn.lantian.ssm.model.log" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM thechallengecup.log WHERE thechallengecup.log.createtime LIKE '%${createtime}%';
+	</select>
+
+
+
+</mapper>

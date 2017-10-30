@@ -1,0 +1,118 @@
+body{
+	background-color: #f0f3f4;
+	height: 100%;
+}
+nav{
+	margin-bottom: 0;
+	min-width: 1900px;
+}
+.navbar-header-logo>a{
+	padding: 0;
+	text-align: center;
+}
+.im{
+	height: 50px;
+}
+.im img{
+	height: 50px;
+}
+.logo-text{
+	margin-top:17px ;
+}
+.glyphicon-name {
+	margin-top: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+/*导航栏样式设置*/
+.navbar-color {
+	background-color: white;
+}
+.navbar-right{
+	min-width: 180px;
+	color:#777;
+}
+.navbar-right>li{
+	float: left;
+}
+nav>div>div{
+	float: left;
+}
+
+nav>div>ul{
+	float: right;
+}
+.identity{
+	padding-right:10px;
+}
+.subject {
+	min-width: 1800px;
+	height: 800px;
+}
+
+.subject-left {
+	background-color: #39435C;
+	width: 15%;
+	height: 770px;
+	float: left;
+}
+.subject-left>ul>li>a {
+	height: 80px;
+	line-height:60px;
+	overflow:hidden; 
+	font-size: 20px;
+	color: white;
+	text-indent:20px;
+}
+
+.subject-left>ul>li>a:hover {
+	color: white;
+	background-color: #425164;
+}
+.subject-right {
+	float: right;
+	width: 85%;
+	min-height: 770px;
+}
+
+.conten {
+	min-width: 1575px;
+	height: 770px;
+	margin: 10px;
+	margin-top: 0;
+	background-color: white;
+	box-shadow: rgba(120, 120, 120, 0.2) 0px 1px 4px;
+	border-radius: 10px 10px 10px 10px;
+}
+
+.container-top {
+	height: 50px;
+	border-bottom: 1px solid #666666;
+}
+
+.container-top>p {
+	font-size: 16px;
+	color: #000000;
+	margin-top: 15px;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+footer{
+	height: 50px;
+	width: 100%;
+	font-size: 12px;
+	text-align: center;
+	color: #666666;
+}
+footer a{
+	color: #666666;
+}
+.recordcode a i {
+	display: inline-block;
+	width: 14px;
+	height: 16px;
+	margin-right: 6px;
+	background: url(../images/icon-police.jpg) 0 0 no-repeat;
+	vertical-align: middle;
+	margin-top: -4px
+}
